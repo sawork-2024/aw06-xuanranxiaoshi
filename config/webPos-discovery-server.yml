@@ -4,10 +4,10 @@ server:
 eureka:
   instance:
     hostname: localhost
-  # standalone mode
+  # standalone mode， 自身不进行注册
   client:
     registerWithEureka: false
     fetchRegistry: false
     serviceUrl:
-      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
+      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/  # 默认的 Eureka 服务端地址
 
