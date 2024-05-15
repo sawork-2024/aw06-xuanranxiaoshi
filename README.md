@@ -23,13 +23,20 @@ WebPos 系统由以下微服务组件构成：
 对于 Product Service 和 Order Service 的访问统一由网关进行管理，网关会分别将以 http://localhost:8080/api/product/* 和 
 http://localhost:8080/api/order/* 格式的请求转发到对应的服务。当有多个服务实例时，Spring Cloud Gateway 会根据服务实例的健康状况和负载情况来动态转发请求。
 
+
+
+在网关中，还配置了 Resilience4j **断路器（Circuit Breaker）**， 用于在服务出现故障或延迟时（设置超时时间为 4s）， 阻止对该服务的请求，从而避免对服务的进一步负载，同时提高整体系统的稳定性。
+
+
+
 ### Product & Order Service
 
 Product Service 和 Order Service 分别维护了产品信息和订单信息，并提供了相应的 RESTful 接口，供其他微服务调用。Product Service 延续了 aw5 的设计，
 而 Order Service 提供了订单创建和查询功能。两者都是以内置 H2 数据库对数据进行持久化存储。
 
-出于实验考虑， Order Service 中会通过 ResTemplate 请求 Product Service 中的 /product/{productId}（获取指定 Product 信息） 
-和 /product/pi（具有计算负载的请求） 请求用于验证服务间访问、和客户端负载均衡功能。
+出于实验考虑， **Order Service 中会通过 ResTemplate 请求 Product Service 中的 /product/{productId}**（获取指定 Product 信息）和 /product/pi（具有计算负载的请求） 请求用于验证服务间访问、和客户端负载均衡功能。
+
+
 
 
 ## 实验报告
@@ -51,11 +58,23 @@ Product Service 和 Order Service 分别维护了产品信息和订单信息，�
 
 ![image-20240515161911385](./static/image-202405151554479681.png)
 
-**（3）通过 Order 调用 Product 微服务**： http://localhost:8080/api/order/product/PD1![image-20240515164655794](./static/image-20240515164655794.png)
+**（3）通过 Order 调用 Product 微服务**： http://localhost:8080/api/order/product/PD1
+
+![image-20240515164655794](./static/image-20240515164655794.png)
 
 ### 2. 负载均衡测试
 
+这里对 Product Service 进行不同程度的水平项拓展给整体系统带来的性能提升，测试接口为具有加大计算复杂度的  /product/pi 请求，测试结果如下图所示：
 
+* Product Service 部署 1 个实例， 测试结果：
+  ![img1.png](static/img1.png)
+* Product Service 部署 2 个实例， 测试结果：
+  ![img2.png](static/img2.png)
+* Product Service 部署 3 个实例， 测试结果：
+  ![img3.png](static/img3.png)
+* Product Service 部署 4 个实例， 测试结果：
+  ![img4.png](static/img4.png)
 
+可以看到随着部署的 Product Service 实例数量增加，系统的性能提升非常明显，请求失败率从最开始 76.2% 下降到最后的 24%；
 
-
+同样，还通过 Order Service 使用配置了负载均衡 ResTemplte 请求 Product Service 服务，得到结论与上述类似。

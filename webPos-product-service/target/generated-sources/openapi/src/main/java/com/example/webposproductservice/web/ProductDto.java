@@ -20,7 +20,7 @@ import jakarta.annotation.Generated;
  */
 
 @JsonTypeName("Product")
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2024-05-15T11:19:41.128546100+08:00[Asia/Shanghai]")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2024-05-15T21:04:30.192876400+08:00[Asia/Shanghai]")
 public class ProductDto {
 
   @JsonProperty("id")
