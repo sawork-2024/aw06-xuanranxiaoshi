@@ -51,7 +51,8 @@ Product Service 和 Order Service 分别维护了产品信息和订单信息，�
 
 ![image-20240515161911385](./static/image-202405151554479681.png)
 
-**（3）通过 Order 调用 Product 微服务**： http://localhost:8080/api/order/product/PD1![image-20240515164655794](./static/image-20240515164655794.png)
+**（3）通过 Order 调用 Product 微服务**： http://localhost:8080/api/order/product/PD1
+![image-20240515164655794](./static/image-20240515164655794.png)
 
 ### 2. 负载均衡测试
 
