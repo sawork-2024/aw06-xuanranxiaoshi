@@ -43,19 +43,17 @@ Product Service 和 Order Service 分别维护了产品信息和订单信息，�
 
 以下是通过 api 网关访问，product 和 order service 的测试：
 
-* 获取指定 Product 的信息： http://localhost:8080/api/product/product/PD1
+**（1）获取指定 Product 的信息**： http://localhost:8080/api/product/product/PD1
 
-![image-20240515155717826](E:\Code\SoftwareArchitecture\aw06-xuanranxiaoshi\static\image-20240515155717826.png)
+![image-20240515155717826](./static/image-20240515155717826.png)
 
-* 创建 Order: http://localhost:8080/api/order/users/1/orders
+**（2）创建 Order:**  http://localhost:8080/api/order/users/1/orders
 
-![image-20240515161911385](E:\Code\SoftwareArchitecture\aw06-xuanranxiaoshi\static\image-202405151554479681.png)
+![image-20240515161911385](./static/image-202405151554479681.png)
 
-
+**（3）通过 Order 调用 Product 微服务**： http://localhost:8080/api/order/product/PD1![image-20240515164655794](./static/image-20240515164655794.png)
 
 ### 2. 负载均衡测试
-
-
 
 
 
