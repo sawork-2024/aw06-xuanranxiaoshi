@@ -1,0 +1,134 @@
+openapi: "3.0.0"
+info:
+  version: 1.0.0
+  title: Products
+  license:
+    name: MIT
+paths:
+  /product:
+    get:
+      summary: List all products
+      operationId: listProducts
+      tags:
+        - product
+      responses:
+        '200':
+          description: A paged array of products
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Products"
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /product/{productId}:
+    get:
+      summary: Info for a specific product
+      operationId: showProductById
+      tags:
+        - product
+      parameters:
+        - name: productId
+          in: path
+          required: true
+          description: The id of the product to retrieve
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Expected response to a valid request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Product"
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    patch:
+      summary: Update a product
+      operationId: updateProduct
+      tags:
+        - product
+      parameters:
+        - name: productId
+          in: path
+          required: true
+          description: The id of the product to update
+          schema:
+            type: string
+      requestBody:
+        description: Update product quantity
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ProductQuantity"
+      responses:
+        200:
+          description: Product update successfully.
+          headers:
+            ETag:
+              description: An ID for this version of the response.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Product"
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+
+# 描述请求和响应的结构
+components:
+  schemas:
+    ProductQuantity:
+      type: object
+      required:
+        - quantity
+      properties:
+        quantity:
+          type: integer
+    Product:
+      type: object
+      required:
+        - id
+        - name
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        price:
+          type: double
+        category:
+          type: string
+        img:
+          type: string
+        stock:
+          type: integer
+        quantity:
+          type: integer
+    Products:
+      type: array
+      items:
+        $ref: "#/components/schemas/Product"
+    Error:
+      type: object
+      required:
+        - code
+        - message
+      properties:
+        code:
+          type: integer
+          format: int32
+        message:
+          type: string

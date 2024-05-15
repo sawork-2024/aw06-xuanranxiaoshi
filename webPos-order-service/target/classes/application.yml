@@ -1,0 +1,16 @@
+spring:
+  application:
+    name: webPos-order-service
+  config:
+    import: optional:configserver:${CONFIG_SERVER_URL:http://localhost:8888/}
+#  h2:
+#    console:
+#      enabled: true
+#      path: /h2-console
+#  cloud:
+#    config:
+#      import-check:
+#        enabled: false
+#  jpa:
+#    show-sql: true
+

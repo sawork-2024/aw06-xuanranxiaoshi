@@ -1,0 +1,8 @@
+.openapi-generator-ignore
+README.md
+pom.xml
+src/main/java/com/example/webposproductservice/web/ApiUtil.java
+src/main/java/com/example/webposproductservice/web/ErrorDto.java
+src/main/java/com/example/webposproductservice/web/ProductApi.java
+src/main/java/com/example/webposproductservice/web/ProductDto.java
+src/main/java/com/example/webposproductservice/web/ProductQuantityDto.java
