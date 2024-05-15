@@ -39,7 +39,7 @@ Product Service 和 Order Service 分别维护了产品信息和订单信息，�
 
 访问 Eureka 的界面地址：http://localhost:8761/ 可以看到服务的注册情况；
 
-![image-20240515155447968](E:\Code\SoftwareArchitecture\aw06-xuanranxiaoshi\static\image-20240515155447968.png)
+![image-20240515155447968](./static/image-20240515155447968.png)
 
 以下是通过 api 网关访问，product 和 order service 的测试：
 
